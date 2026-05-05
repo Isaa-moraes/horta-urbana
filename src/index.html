@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HortaUrbana - Sistema de Gestão</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo-area">
+                <img src="imgs/logohortaurbana.png" alt="Logo HortaUrbana" class="logo-img">
+                <span class="marca">HortaUrbana</span>
+            </div>
+            <nav id="menu">
+                <button class="btn-nav" onclick="navegar('painel')">Painel</button>
+                <button class="btn-nav" onclick="navegar('novo-plantio')">Novo Plantio</button>
+                <button class="btn-nav" onclick="navegar('mapa')">Mapa</button>
+            </nav>
+        </div>
+    </header>
+
+
+    <main>
+        <!-- Págin: novo plantio-->
+        <section id="novo-plantio" class="pagina">
+            <h2>🌱 Cadastrar Novo Plantio</h2>
+            <form id="form-plantio">
+                <label>Tipo de Cultura:</label>
+                <select id="cultura" required onchange="verificarOutro(this.value)">
+                    <option value="Alface">Alface (45 dias)</option>
+                    <option value="Tomate">Tomate (90 dias)</option>
+                    <option value="Cenoura">Cenoura (70 dias)</option>
+                    <option value="Morango">Morango (100 dias)</option>
+                    <option value="Batata">Batata (55 dias)</option>
+                    <option value="Repolho">Repolho (62 dias)</option>
+
+                    <option value="outro">Outro...</option> 
+                </select>
+                <!-- Campos extras que só aparecem se escolher "Outro" -->
+                <div id="campos-extras" style="display: none; width: 100%; flex-direction: column; gap: 10px; margin-top: 10px;">
+                    <input type="text" id="nova-cultura" placeholder="Nome da planta (Ex: Rabanete)">
+                    <input type="number" id="novo-tempo" placeholder="Dias para colher (Ex: 30)">
+                </div>
+
+                <label>Data do Plantio:</label>
+                <input type="date" id="data" required>
+
+                <label>Área do Canteiro(m²):</label>
+                <input placeholder="Ex: 2" type="number" id="area" required>
+
+                <button type="submit" class="btn-acao">Cadastrar Plantio</button>
+            </form>
+        </section>
+
+        <!-- Página: Painel de Controle dos plantios que existem -->
+        <section id="painel" class="pagina" style="display:none;">
+            <h2> Painel de Controle</h2>
+            <div id="lista-canteiros">
+                <p id="msg-vazio">Nenhum plantio registrado ainda.</p>
+            </div>
+        </section>
+
+
+        <!-- Página: mapa das hostas/ plantios -->
+        <section id="mapa" class="pagina" style="display:none;">
+            <h2>📍 Mapa de Hortas</h2>
+            <div id="mapa-placeholder">
+                <p>Simulação de Mapa: Localização de Hortas Ativas</p>
+                <div class="ponto-mapa">Horta Comunitária Centro</div>
+                <div class="ponto-mapa">Horta Vila Esperança</div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <img src="imgs/logohortaurbana.png" alt="Logo" class="footer-img">
+            <p>&copy; 2026 HortaUrbana</p>
+            <img src="imgs/logohortaurbana.png" alt="Logo" class="footer-img">
+        </div>
+    </footer>
+
+    <script src="script.js" defer></script>
+</body>
+</html>

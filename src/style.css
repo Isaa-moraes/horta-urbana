@@ -1,0 +1,207 @@
+:root {
+    --verde-fundo: #e8f5e9;
+    --verde-primario: #4caf50; 
+    --verde-escuro: #2e7d32;
+    --branco: #ffffff;
+    --texto: #333333;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--verde-fundo);
+    color: var(--texto);
+    margin: 0;
+}
+
+/* Header */
+header {
+    background-color: var(--branco);
+    padding: 20px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    width: 100%;
+}
+
+.header-container {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-img {
+    height: 45px;
+    width: auto;
+}
+
+.marca {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--verde-escuro);
+}
+
+/* Botões */
+.btn-nav {
+    background: transparent;
+    border: 2px solid var(--verde-primario);
+    color: var(--verde-primario);
+    padding: 8px 18px;
+    margin-left: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.btn-nav:hover {
+    background-color: var(--verde-primario);
+    color: var(--branco);
+    transform: translateY(-2px);
+}
+
+.btn-nav.active {
+    background-color: var(--verde-primario);
+    color: var(--branco);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transform: scale(1.05); 
+}
+
+
+/* Estilo do formulário e cards */
+.pagina {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    min-height: 80vh;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    background: var(--branco);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    width: 100%;
+    max-width: 400px; 
+}
+form label, form input, form select, .btn-acao {
+    width: 100%;
+}
+
+form h2 {
+    margin-top: 0;
+    color: var(--verde-escuro);
+}
+
+#lista-canteiros {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    gap: 20px; 
+    padding: 20px;
+}
+
+.card {
+    background: var(--branco);
+    border: none;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    width: calc(33.33% - 40px); 
+    min-width: 280px; 
+    box-sizing: border-box;
+}
+
+.card-urgente {
+    border: 2px solid #ff4444 !important; 
+    animation: pulsar-borda 1.5s infinite ease-in-out;
+}
+
+@keyframes pulsar-borda {
+    0% { box-shadow: 0 0 0 0px rgba(255, 68, 68, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 68, 68, 0); }
+    100% { box-shadow: 0 0 0 0px rgba(255, 68, 68, 0); }
+}
+
+/* Botão de Ação Principal */
+.btn-acao {
+    background-color: var(--verde-primario);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-acao:hover {
+    background-color: var(--verde-escuro);
+}
+
+/* Mapa */
+#mapa-placeholder {
+    background: var(--branco);
+    border: 2px dashed var(--verde-primario);
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;
+}
+
+.info-geo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.ponto-mapa {
+    background: var(--verde-escuro);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin: 10px 0;
+}
+
+
+/* Rodapé */
+footer {
+    background-color: var(--verde-escuro); 
+    color: var(--branco);
+    padding: 15px 0;
+    width: 100%;
+    margin-top: 40px; 
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    gap: 30px;
+}
+
+.footer-img {
+    height: 35px;
+    width: auto;
+}
+
+.footer-content p {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 0;
+}
