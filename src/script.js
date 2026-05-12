@@ -7,7 +7,7 @@ const REGRAS_CULTURAS = {
     "Repolho": 62
 };
 
-// 1. Função de navegação (SPA) e geolocalização
+// 1. Função de navegação e geolocalização
 function navegar(idPagina) {
     const paginas = document.querySelectorAll('.pagina');
     paginas.forEach(secao => secao.style.display = 'none');
@@ -55,7 +55,7 @@ function navegar(idPagina) {
 
 window.onload = () => navegar('novo-plantio');
 
-// 2. Lógica do formulário (Processamento e validação)
+// 2. Lógica do formulário
 const form = document.getElementById('form-plantio');
 form.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -89,8 +89,11 @@ form.addEventListener('submit', function(e) {
     // Geração da string BR padronizada
     const dataFimBr = dataObjeto.toLocaleDateString('pt-BR');
 
+    // Gera um ID único baseado nos milissegundos atuais para a remoção reativa
+    const idUnico = Date.now();
+
     // Envio reativo dos dados processados para a camada de visualização
-    criarCardNoPainel(cultura, dataPlantioBr, dataFimBr, sementes);
+    criarCardNoPainel(idUnico, cultura, dataPlantioBr, dataFimBr, sementes);
 
     form.reset();
     document.getElementById('campos-extras').style.display = 'none'; 
@@ -105,13 +108,14 @@ function verificarOutro(valor) {
 }
 
 // 4. Criar card no painel
-function criarCardNoPainel(nome, inicio, fim, sementes) {
+function criarCardNoPainel(id, nome, inicio, fim, sementes) {
     const lista = document.getElementById('lista-canteiros');
     const msgVazio = document.getElementById('msg-vazio');
     if (msgVazio) msgVazio.style.display = 'none';
 
     const card = document.createElement('div');
     card.className = 'card';
+    card.id = `canteiro-${id}`;
 
     const hoje = new Date();
     hoje.setHours(0, 0, 0, 0);
@@ -136,9 +140,77 @@ function criarCardNoPainel(nome, inicio, fim, sementes) {
         <p><strong>Previsão de Colheita:</strong> ${fim}</p>
         <p><strong>Insumos:</strong> ${sementes} sementes</p>
         <hr style="border: 1px dashed #ccc; margin: 12px 0;">
-        <small style="font-weight: bold; color: ${precisaColher ? '#cc0000' : '#2e7d32'}">
-            Status: ${precisaColher ? '⚠️ Necessita de colheita imediata!' : '🔄 Em monitoramento...'}
-        </small>
+        <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
+            <small style="font-weight: bold; color: ${precisaColher ? '#cc0000' : '#2e7d32'}">
+                Status: ${precisaColher ? '⚠️ Necessita de colheita imediata!' : '🔄 Em monitoramento'}
+            </small>
+            <button class="btn-colheita" onclick="confirmarBaixaColheita(${id})">
+                ✅ Colheita concluída!
+            </button>
+
+        </div>
     `;
     lista.appendChild(card);
 }
+
+// 5. Função de exclusão de canteiro
+function confirmarBaixaColheita(idCanteiro) {
+    const confirmar = confirm("Você confirma que este canteiro foi colhido e o espaço está limpo?");
+    
+    if (confirmar) {
+        // Localiza o elemento exato na árvore do DOM e remove
+        const cardParaRemover = document.getElementById(`canteiro-${idCanteiro}`);
+        if (cardParaRemover) {
+            cardParaRemover.remove();
+        }
+
+        // Se o painel ficar completamente vazio novamente, exibe a mensagem de aviso
+        const lista = document.getElementById('lista-canteiros');
+        // Filtra elementos para ignorar nós de texto e verificar se restou apenas o p de mensagem vazia escondido
+        const itensAtivos = Array.from(lista.children).filter(el => el.id !== 'msg-vazio');
+        
+        if (itensAtivos.length === 0) {
+            const msgVazio = document.getElementById('msg-vazio');
+            if (msgVazio) msgVazio.style.display = 'block';
+        }
+    }
+}
+
+
+// 6. Filtro dinâmico do painel (UX de Campo)
+// function filtrarCanteiros(tipo) {
+//     const cards = document.querySelectorAll('#lista-canteiros .card');
+//     const lista = document.getElementById('lista-canteiros');
+    
+//     document.getElementById('filtro-todos').classList.toggle('active-filtro', tipo === 'todos');
+//     document.getElementById('filtro-urgentes').classList.toggle('active-filtro', tipo === 'urgentes');
+
+//     const msgFiltroAnterior = document.getElementById('msg-filtro-vazio');
+//     if (msgFiltroAnterior) msgFiltroAnterior.remove();
+
+//     let contadorVisiveis = 0;
+
+//     cards.forEach(card => {
+//         if (tipo === 'todos') {
+//             card.style.display = 'flex';
+//             contadorVisiveis++;
+//         } else if (tipo === 'urgentes') {
+//             if (card.classList.contains('card-urgente')) {
+//                 card.style.display = 'flex';
+//                 contadorVisiveis++;
+//             } else {
+//                 card.style.display = 'none';
+//             }
+//         }
+//     });
+
+//     const msgVazioGeral = document.getElementById('msg-vazio');
+//     if (contadorVisiveis === 0 && msgVazioGeral.style.display !== 'block') {
+//         const msg = document.createElement('p');
+//         msg.id = 'msg-filtro-vazio';
+//         msg.style.fontWeight = 'bold';
+//         msg.style.color = 'var(--verde-escuro)';
+//         msg.innerText = '✅ Não existem canteiros necessitando de colheita no momento.';
+//         lista.appendChild(msg);
+//     }
+// }

@@ -127,6 +127,41 @@ form h2 {
     animation: pulsar-borda 1.5s infinite ease-in-out;
 }
 
+/* Botão da colheita */
+/* O botão fica oculto por padrão em canteiros que estão crescendo */
+.btn-colheita {
+    display: none; 
+    background-color: var(--verde-escuro);
+    color: var(--branco);
+    border: 2px solid var(--texto);
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 5px;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* O botão SÓ aparece se o card receber a classe .card-urgente (alerta de colheita) */
+.card-urgente .btn-colheita {
+    display: flex;
+}
+
+/* Feedback visual de exclusão */
+.btn-colheita:hover, .btn-colheita:focus {
+    background-color: #cc0000;
+    border-color: #000000;
+    outline: none;
+}
+
+
+
 @keyframes pulsar-borda {
     0% { box-shadow: 0 0 0 0px rgba(255, 68, 68, 0.4); }
     70% { box-shadow: 0 0 0 10px rgba(255, 68, 68, 0); }
