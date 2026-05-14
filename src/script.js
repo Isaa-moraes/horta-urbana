@@ -28,6 +28,7 @@ function navegar(idPagina) {
         }
     });
 
+    // Lógica de geolocalização apenas para a página de mapa
     if (idPagina === 'mapa') {
         const placeholder = document.getElementById('mapa-placeholder');
         placeholder.innerHTML = "<p>🔍 Localizando sua posição...</p>";
